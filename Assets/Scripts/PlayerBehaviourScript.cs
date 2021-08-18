@@ -27,6 +27,10 @@ public class PlayerBehaviourScript : MonoBehaviour
 
         //this.transform.Rotate(new Vector3(0, dx * Time.deltaTime * 10.0f, 0), Space.Self);
         //cc.Move(this.transform.forward * dy * Time.deltaTime * 5.0f);
+
+        animator.SetBool("Jump", Input.GetKey(KeyCode.Z));
+        animator.SetBool("Attack1", Input.GetKey(KeyCode.X) || Input.GetMouseButton(0));
+        animator.SetBool("Attack2", Input.GetKey(KeyCode.C) || Input.GetMouseButton(1));
     }
 
     /*
