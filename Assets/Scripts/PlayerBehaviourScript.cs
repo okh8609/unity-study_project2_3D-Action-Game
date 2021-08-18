@@ -20,7 +20,8 @@ public class PlayerBehaviourScript : MonoBehaviour
         float dy = Input.GetAxis("Vertical");
         animator.SetFloat("Speed", dy);
         float dx = Input.GetAxis("Horizontal");
-        animator.SetFloat("Direction", dx);
+        animator.SetFloat("Direction", dx, 0.08f, Time.deltaTime);
+        //animator.SetFloat("Direction", dx);
 
         //this.transform.Rotate(new Vector3(0, dx * Time.deltaTime * 10.0f, 0), Space.Self);
         //cc.Move(this.transform.forward * dy * Time.deltaTime * 5.0f);
