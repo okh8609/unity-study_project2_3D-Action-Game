@@ -18,7 +18,9 @@ public class PlayerBehaviourScript : MonoBehaviour
     void Update()
     {
         float dy = Input.GetAxis("Vertical");
-        animator.SetFloat("Speed", dy);
+        if (Input.GetKey(KeyCode.Space)) dy *= 2;
+        animator.SetFloat("Speed", dy, 0.08f, Time.deltaTime);
+        //animator.SetFloat("Speed", dy);
         float dx = Input.GetAxis("Horizontal");
         animator.SetFloat("Direction", dx, 0.08f, Time.deltaTime);
         //animator.SetFloat("Direction", dx);
