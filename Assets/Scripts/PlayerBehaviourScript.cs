@@ -28,9 +28,9 @@ public class PlayerBehaviourScript : MonoBehaviour
         //this.transform.Rotate(new Vector3(0, dx * Time.deltaTime * 10.0f, 0), Space.Self);
         //cc.Move(this.transform.forward * dy * Time.deltaTime * 5.0f);
 
-        animator.SetBool("Jump", Input.GetKey(KeyCode.Z));
-        animator.SetBool("Attack1", Input.GetKey(KeyCode.X) || Input.GetMouseButton(0));
-        animator.SetBool("Attack2", Input.GetKey(KeyCode.C) || Input.GetMouseButton(1));
+        animator.SetBool("Jump", Input.GetKey(KeyCode.E));
+        animator.SetBool("Attack1", Input.GetKey(KeyCode.R) || Input.GetMouseButton(0));
+        animator.SetBool("Attack2", Input.GetKey(KeyCode.T) || Input.GetMouseButton(1));
     }
 
     /*
@@ -45,4 +45,50 @@ public class PlayerBehaviourScript : MonoBehaviour
         cc.Move(this.transform.forward * dy * Time.deltaTime * 5.0f);
     }
     */
+    #region Attack1
+    public AudioClip attack1_audio;
+    public Transform attack1_pos;
+
+    public GameObject attack1_effect;
+    GameObject attack1_effect_playing;
+
+    public GameObject attack1_magic;
+    GameObject attack1_magic_playing;
+    //public AudioClip attack1_magic_audio;
+
+
+    public void Attack1_Begin()
+    {
+        AudioSource.PlayClipAtPoint(attack1_audio, attack1_pos.position, 1);
+        attack1_effect_playing = Instantiate(attack1_effect, attack1_pos); // 其實好像不用Destroy()?? 隨Transform parent消失??
+
+        attack1_magic_playing = Instantiate(attack1_magic, attack1_pos.position - new Vector3(0, 0.25f, 0), Quaternion.Euler(0, 0, 0));
+        attack1_magic_playing.GetComponent<Rigidbody>().AddForce(this.transform.forward * 768);
+        //AudioSource.PlayClipAtPoint(attack1_magic_audio, attack1_magic_playing.transform.position, 1);
+    }
+
+    public void Attack1_End()
+    {
+        Destroy(attack1_effect_playing);
+    }
+    #endregion
+
+    #region Attack2
+    public AudioClip attack2_audio;
+    public Transform attack2_pos;
+
+    public GameObject attack2_effect;
+    GameObject attack2_effect_playing;
+
+    public void Attack2_Begin()
+    {
+        AudioSource.PlayClipAtPoint(attack2_audio, attack2_pos.position, 1);
+        attack2_effect_playing = Instantiate(attack2_effect, attack2_pos);
+    }
+
+    public void Attack2_End()
+    {
+        Destroy(attack2_effect_playing);
+    }
+    #endregion
 }
