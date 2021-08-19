@@ -19,4 +19,14 @@ public class MagicBall : MonoBehaviour
         if (Time.time > Deadline)
             Destroy(this.gameObject);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //Time.timeScale = 0; // 讓遊戲進入暫停狀態
+        //print(collision.gameObject.name);
+        //print(collision.gameObject.tag);
+
+        if (!collision.gameObject.CompareTag("Self"))
+            Destroy(this.gameObject);
+    }
 }

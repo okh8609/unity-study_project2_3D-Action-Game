@@ -63,7 +63,7 @@ public class PlayerBehaviourScript : MonoBehaviour
         attack1_effect_playing = Instantiate(attack1_effect, attack1_pos); // 其實好像不用Destroy()?? 隨Transform parent消失??
 
         attack1_magic_playing = Instantiate(attack1_magic, attack1_pos.position - new Vector3(0, 0.25f, 0), Quaternion.Euler(0, 0, 0));
-        attack1_magic_playing.GetComponent<Rigidbody>().AddForce(this.transform.forward * 768);
+        attack1_magic_playing.GetComponent<Rigidbody>().AddForce(this.transform.forward * 1024);
         //AudioSource.PlayClipAtPoint(attack1_magic_audio, attack1_magic_playing.transform.position, 1);
     }
 
