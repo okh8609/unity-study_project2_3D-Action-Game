@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1593351762288323633}
   - component: {fileID: 1593351762269972851}
-  - component: {fileID: 2248819057650220463}
   - component: {fileID: 1593351762270064851}
   - component: {fileID: 1990468290373810482}
   - component: {fileID: -3555680022790251086}
   - component: {fileID: 4322384349083500277}
+  - component: {fileID: 7551878868195663911}
   m_Layer: 0
   m_Name: MagicBall
   m_TagString: Untagged
@@ -4754,18 +4754,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &2248819057650220463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1593351762288816145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 291a0b00940dbc44ca75b7aa558a27dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!199 &1593351762270064851
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -4957,6 +4945,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7551878868195663911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593351762288816145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61910585a60ad494da809255e1a142d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SurvivalTime: 2
 --- !u!1 &1593351762288816147
 GameObject:
   m_ObjectHideFlags: 0

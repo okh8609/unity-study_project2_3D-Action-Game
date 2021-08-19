@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicBall : MonoBehaviour
+public class MagicBallBehaviourScript : MonoBehaviour
 {
     public float SurvivalTime = 2.0f;
     float Deadline = 0.0f;
