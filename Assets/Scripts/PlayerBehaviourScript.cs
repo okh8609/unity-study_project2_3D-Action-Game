@@ -33,6 +33,11 @@ public class PlayerBehaviourScript : MonoBehaviour
         animator.SetBool("Attack2", Input.GetKey(KeyCode.T) || Input.GetMouseButton(1));
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        print("Player->OnCollisionEnter(): <" + collision.gameObject.tag + "> ::" + collision.gameObject.name);
+    }
+
     /*
     private void OnAnimatorMove()
     {
@@ -45,7 +50,8 @@ public class PlayerBehaviourScript : MonoBehaviour
         cc.Move(this.transform.forward * dy * Time.deltaTime * 5.0f);
     }
     */
-    #region Attack1
+
+    #region Attack1 魔法空氣球
     public AudioClip attack1_audio;
     public Transform attack1_pos;
 
@@ -63,7 +69,7 @@ public class PlayerBehaviourScript : MonoBehaviour
         attack1_effect_playing = Instantiate(attack1_effect, attack1_pos); // 其實好像不用Destroy()?? 隨Transform parent消失??
 
         attack1_magic_playing = Instantiate(attack1_magic, attack1_pos.position - new Vector3(0, 0.25f, 0), Quaternion.Euler(0, 0, 0));
-        attack1_magic_playing.GetComponent<Rigidbody>().AddForce(this.transform.forward * 1024);
+        attack1_magic_playing.GetComponent<Rigidbody>().AddForce(this.transform.forward * 1250);
         //AudioSource.PlayClipAtPoint(attack1_magic_audio, attack1_magic_playing.transform.position, 1);
     }
 
@@ -73,7 +79,7 @@ public class PlayerBehaviourScript : MonoBehaviour
     }
     #endregion
 
-    #region Attack2
+    #region Attack2 劍擊
     public AudioClip attack2_audio;
     public Transform attack2_pos;
 

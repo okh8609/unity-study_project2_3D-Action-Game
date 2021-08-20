@@ -33,15 +33,27 @@ public class EnemyBehaviourScript : MonoBehaviour
 
         navAgent.SetDestination(targetObj.transform.position);
 
+
         if (navAgent.remainingDistance > navAgent.stoppingDistance)
-            character.Move(navAgent.desiredVelocity, false, false);
+            character.Move(navAgent.velocity, false, false);
         else
             character.Move(Vector3.zero, false, false);
+
+
+        if (navAgent.remainingDistance < navAgent.stoppingDistance + 1.5f)
+        {
+            this.transform.LookAt(targetObj.transform);
+            animator.SetBool("Attack2", true);
+        }
+        else
+        {
+            animator.SetBool("Attack2", false);
+        }
     }
 
 
     private void OnCollisionEnter(Collision collision)
     {
-        print("Enemy->OnCollisionEnter():" + collision.gameObject.name);
+        print("Enemy->OnCollisionEnter(): <" + collision.gameObject.tag + "> ::" + collision.gameObject.name);
     }
 }
