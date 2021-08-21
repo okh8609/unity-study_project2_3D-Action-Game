@@ -21,7 +21,7 @@ public class EnemyBehaviourScript : MonoBehaviour
         animator = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         navAgent.updateRotation = false;
-
+        next_can_attack = Time.time;
     }
 
     // Update is called once per frame
@@ -40,41 +40,18 @@ public class EnemyBehaviourScript : MonoBehaviour
         else
             character.Move(Vector3.zero, false, false);
 
-
-        if (navAgent.remainingDistance < navAgent.stoppingDistance + 1.5f &&
-            !animator.GetBool("HitWaiting") &&
+        if ((navAgent.remainingDistance < (navAgent.stoppingDistance + 1.5f)) &&
+            this.next_can_attack < Time.time &&
             !animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit Blend Tree")) //第0層正在播放的動畫名稱，是否叫做"XXX"
         {
+            this.next_can_attack += 3.0f;
+
             this.transform.LookAt(targetObj.transform);
 
-            animator.SetBool("Attack1", false);
-            animator.SetBool("Attack2", true);
+            animator.SetTrigger("Attack2");
             this.gameObject.BroadcastMessage("HurtEnable");
-
-            //switch (Random.Range(0, 2))
-            //{
-            //    case 0:
-            //        animator.SetBool("Attack1", false);
-            //        animator.SetBool("Attack2", true);
-            //        break;
-            //    case 1:
-            //        animator.SetBool("Attack1", true);
-            //        animator.SetBool("Attack2", false);
-            //        break;
-            //    default:
-            //        animator.SetBool("Attack1", false);
-            //        animator.SetBool("Attack2", false);
-            //        break;
-            //}
-        }
-        else
-        {
-            animator.SetBool("Attack1", false);
-            animator.SetBool("Attack2", false);
-            this.gameObject.BroadcastMessage("HurtDisable");
         }
     }
-
 
     //private void OnCollisionEnter(Collision collision)
     //{
@@ -98,6 +75,13 @@ public class EnemyBehaviourScript : MonoBehaviour
     public void Attack2_End()
     {
         Destroy(attack2_effect_playing);
+        this.gameObject.BroadcastMessage("HurtDisable");
     }
     #endregion
+
+    private float next_can_attack;
+    public void BeHit()
+    {
+        next_can_attack = Time.time + 7.5f;
+    }
 }

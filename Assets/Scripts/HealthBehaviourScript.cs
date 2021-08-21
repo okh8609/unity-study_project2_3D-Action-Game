@@ -25,11 +25,14 @@ public class HealthBehaviourScript : MonoBehaviour
                 AudioSource.PlayClipAtPoint(hit_audio, collision.GetContact(0).point, 1);
                 StartCoroutine(PlayEffect(Instantiate(hit_effect, collision.GetContact(0).point, Quaternion.Euler(Vector3.zero), this.transform)));
 
-                StartCoroutine(AnimatorTriggerDelay(GetComponent<Animator>(), "HitWaiting", 7.5f));
                 Vector3 hit_vec = collision.GetContact(0).point - this.transform.position;
                 float hit_angle = Mathf.Atan2(hit_vec.x, hit_vec.z) / Mathf.PI * 180.0f;
                 GetComponent<Animator>().SetFloat("HitAngle", hit_angle);
                 GetComponent<Animator>().SetTrigger("Hit");
+
+                EnemyBehaviourScript enemy = GetComponent<EnemyBehaviourScript>();
+                if (enemy != null)
+                    enemy.BeHit();
             }
         }
 
@@ -40,13 +43,6 @@ public class HealthBehaviourScript : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         Destroy(effect);
-    }
-
-    IEnumerator AnimatorTriggerDelay(Animator animator, string key, float time)
-    {
-        animator.SetBool(key, true);
-        yield return new WaitForSeconds(time);
-        animator.SetBool(key, false);
     }
 
     // Start is called before the first frame update
