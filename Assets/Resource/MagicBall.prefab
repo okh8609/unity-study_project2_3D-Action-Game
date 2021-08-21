@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: -3555680022790251086}
   - component: {fileID: 4322384349083500277}
   - component: {fileID: 7551878868195663911}
+  - component: {fileID: 1942456531318576062}
   m_Layer: 0
   m_Name: MagicBall
-  m_TagString: Untagged
+  m_TagString: Hurt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4847,7 +4848,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.25
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &4322384349083500277
 AudioSource:
@@ -4958,6 +4959,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SurvivalTime: 2
+  hit_audio: {fileID: 8300000, guid: 121df4ff91858d9498a8f60b32028fb2, type: 3}
+  hit_effect: {fileID: 100006, guid: a49596ebf788acd4ab1281bffea444b1, type: 3}
+--- !u!114 &1942456531318576062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593351762288816145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de467c88678080146beb4aa66bae1481, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  role: 0
+  type: 3
+  power: 10
+  active: 1
 --- !u!1 &1593351762288816147
 GameObject:
   m_ObjectHideFlags: 0

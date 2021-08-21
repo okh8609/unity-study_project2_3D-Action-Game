@@ -33,10 +33,11 @@ public class PlayerBehaviourScript : MonoBehaviour
         animator.SetBool("Attack2", Input.GetKey(KeyCode.T) || Input.GetMouseButton(1));
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        print("Player->OnCollisionEnter(): <" + collision.gameObject.tag + "> ::" + collision.gameObject.name);
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    print("Player->OnCollisionEnter(): <" + collision.gameObject.tag + "> ::" + collision.gameObject.name);
+    //    print("Player->OnCollisionEnter(): <" + collision.collider.gameObject.tag + "> ::" + collision.collider.gameObject.name);
+    //}
 
     /*
     private void OnAnimatorMove()
@@ -68,14 +69,19 @@ public class PlayerBehaviourScript : MonoBehaviour
         AudioSource.PlayClipAtPoint(attack1_audio, attack1_pos.position, 1);
         attack1_effect_playing = Instantiate(attack1_effect, attack1_pos); // 其實好像不用Destroy()?? 隨Transform parent消失??
 
-        attack1_magic_playing = Instantiate(attack1_magic, attack1_pos.position - new Vector3(0, 0.25f, 0), Quaternion.Euler(0, 0, 0));
-        attack1_magic_playing.GetComponent<Rigidbody>().AddForce(this.transform.forward * 1250);
+        //attack1_magic_playing = Instantiate(attack1_magic, attack1_pos.position - new Vector3(0, 0.25f, 0), Quaternion.Euler(0, 0, 0));
+        attack1_magic_playing = Instantiate(attack1_magic, attack1_pos.position + new Vector3(0, 0.1f, 0), Quaternion.Euler(0, 0, 0));
+        attack1_magic_playing.GetComponent<Rigidbody>().AddForce(this.transform.forward * 1500);
         //AudioSource.PlayClipAtPoint(attack1_magic_audio, attack1_magic_playing.transform.position, 1);
+
+        this.gameObject.BroadcastMessage("HurtEnable");
     }
 
     public void Attack1_End()
     {
         Destroy(attack1_effect_playing);
+
+        this.gameObject.BroadcastMessage("HurtDisable");
     }
     #endregion
 
@@ -90,11 +96,15 @@ public class PlayerBehaviourScript : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(attack2_audio, attack2_pos.position, 1);
         attack2_effect_playing = Instantiate(attack2_effect, attack2_pos);
+
+        this.gameObject.BroadcastMessage("HurtEnable");
     }
 
     public void Attack2_End()
     {
         Destroy(attack2_effect_playing);
+
+        this.gameObject.BroadcastMessage("HurtDisable");
     }
     #endregion
 }
