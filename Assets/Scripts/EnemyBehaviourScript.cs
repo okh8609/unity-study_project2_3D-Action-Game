@@ -27,6 +27,14 @@ public class EnemyBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Navigate();
+        AutoAttack();
+
+
+    }
+
+    void Navigate()
+    {
         //print("navAgent.desiredVelocity -> " + navAgent.desiredVelocity.ToString());
         //print("navAgent.desiredVelocity.magnitude -> " + navAgent.desiredVelocity.magnitude.ToString());
         //print("navAgent.velocity -> " + navAgent.velocity.ToString());
@@ -34,12 +42,14 @@ public class EnemyBehaviourScript : MonoBehaviour
 
         navAgent.SetDestination(targetObj.transform.position);
 
-
         if (navAgent.remainingDistance > navAgent.stoppingDistance)
             character.Move(navAgent.velocity, false, false);
         else
             character.Move(Vector3.zero, false, false);
+    }
 
+    void AutoAttack()
+    {
         if ((navAgent.remainingDistance < (navAgent.stoppingDistance + 1.5f)) &&
             this.next_can_attack < Time.time &&
             !animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit Blend Tree")) //第0層正在播放的動畫名稱，是否叫做"XXX"
