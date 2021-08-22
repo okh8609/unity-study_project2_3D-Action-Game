@@ -19,6 +19,8 @@ public class EnemyBehaviourScript : MonoBehaviour
 
     public ThirdPersonCharacter character;
 
+    public int score_value = 1000;
+
 
     // Start is called before the first frame update
     void Start()
@@ -136,6 +138,8 @@ public class EnemyBehaviourScript : MonoBehaviour
         if (navAgent != null) navAgent.isStopped = true;
 
         StartCoroutine(Clear());
+
+        GameObject.Find("Player").GetComponent<UI_ScoreBehaviourScript>().AddScore(score_value);
     }
     IEnumerator Clear()
     {
