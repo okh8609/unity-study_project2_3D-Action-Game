@@ -82,6 +82,22 @@ public class EnemyBehaviourScript : MonoBehaviour
     private float next_can_attack;
     public void BeHit()
     {
-        next_can_attack = Time.time + 7.5f;
+        next_can_attack = Time.time + 6.5f;
     }
+
+    void Die()
+    {
+        this.enabled = false;
+
+        NavMeshAgent navAgent = GetComponent<NavMeshAgent>();
+        if (navAgent != null) navAgent.isStopped = true;
+
+        StartCoroutine(Clear());
+    }
+    IEnumerator Clear()
+    {
+        yield return new WaitForSeconds(3.0f);
+        Destroy(this.gameObject);
+    }
+
 }

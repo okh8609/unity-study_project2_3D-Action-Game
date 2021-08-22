@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class HealthBehaviourScript : MonoBehaviour
 {
@@ -15,12 +16,14 @@ public class HealthBehaviourScript : MonoBehaviour
         HurtBehaviourScript hurt = collision.collider.gameObject.GetComponent<HurtBehaviourScript>();
         if (hurt != null)
         {
-            if (hurt.role == opposite && hurt.active)
+            if (hurt.role == opposite && hurt.active &&
+                !GetComponent<Animator>().GetBool("Death"))
             {
                 hurt.HurtDisable();
 
                 this.Health -= hurt.power;
                 print("[" + this.gameObject.name + "] ¥Í©R¤O = " + this.Health);
+                if (this.Health <= 0) SendMessage("Die");
 
                 AudioSource.PlayClipAtPoint(hit_audio, collision.GetContact(0).point, 1);
                 StartCoroutine(PlayEffect(Instantiate(hit_effect, collision.GetContact(0).point, Quaternion.Euler(Vector3.zero), this.transform)));
@@ -55,5 +58,10 @@ public class HealthBehaviourScript : MonoBehaviour
     void Update()
     {
 
+    }
+
+    void Die()
+    {
+        GetComponent<Animator>().SetBool("Death", true);
     }
 }
