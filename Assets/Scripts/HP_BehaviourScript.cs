@@ -10,14 +10,14 @@ public class HP_BehaviourScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        original_HP = GetComponentInParent<HealthBehaviourScript>().Health;
+        original_HP = GetComponentInParent<HealthBehaviourScript>().HP;
         original_scale = this.transform.localScale.x;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float now_HP = GetComponentInParent<HealthBehaviourScript>().Health;
+        float now_HP = GetComponentInParent<HealthBehaviourScript>().HP;
         if (now_HP <= 0)
         {
             Destroy(this.gameObject);

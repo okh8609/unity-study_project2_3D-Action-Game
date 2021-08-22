@@ -5,11 +5,34 @@ using UnityEngine.AI;
 
 public class HealthBehaviourScript : MonoBehaviour
 {
-    public float Health = 999;
+    float Full_HP;
+    public float HP = 999;
+    public float HP_Restore = 1;
     public Role opposite;
     public AudioClip hit_audio;
     public GameObject hit_effect;
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        Full_HP = HP;
+        StartCoroutine(ChargeHealth());
+    }
+
+    IEnumerator ChargeHealth()
+    {
+        while (HP > 0)
+        {
+            if (HP < Full_HP) HP += HP_Restore;
+            yield return new WaitForSeconds(1.0f);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -28,9 +51,9 @@ public class HealthBehaviourScript : MonoBehaviour
                 //    if (player != null) player.DisableAllHurt();
                 //}
 
-                this.Health -= hurt.power;
-                print($"[{this.gameObject.name}] 生命力 = {this.Health} (BY: {collision.gameObject.name})");
-                if (this.Health <= 0) SendMessage("Die");
+                this.HP -= hurt.power;
+                print($"[{this.gameObject.name}] 生命力 = {this.HP} (BY: {collision.gameObject.name})");
+                if (this.HP <= 0) SendMessage("Die");
 
                 AudioSource.PlayClipAtPoint(hit_audio, collision.GetContact(0).point, 1);
                 StartCoroutine(PlayEffect(Instantiate(hit_effect, collision.GetContact(0).point, Quaternion.Euler(Vector3.zero), this.transform)));
@@ -52,18 +75,6 @@ public class HealthBehaviourScript : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         Destroy(effect);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     void Die()

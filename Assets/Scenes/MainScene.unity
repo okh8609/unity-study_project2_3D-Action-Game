@@ -3944,7 +3944,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28896b439496f6648bc89b103dd5f266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 50
+  HP: 50
+  HP_Restore: 0.25
   opposite: 0
   hit_audio: {fileID: 8300000, guid: a3ff8a98bf8e5ab4fa7f8b085fb35dd4, type: 3}
   hit_effect: {fileID: 100014, guid: 5332791ebce075d4a9e56f4581e7fb47, type: 3}
@@ -14310,7 +14311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28896b439496f6648bc89b103dd5f266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 100
+  HP: 100
+  HP_Restore: 0.5
   opposite: 1
   hit_audio: {fileID: 8300000, guid: a3ff8a98bf8e5ab4fa7f8b085fb35dd4, type: 3}
   hit_effect: {fileID: 100014, guid: 5332791ebce075d4a9e56f4581e7fb47, type: 3}
@@ -20838,7 +20840,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1495895457489786024, guid: a39fd1ea0c48f96418582754a2ca1f09, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1495895457489786024, guid: a39fd1ea0c48f96418582754a2ca1f09, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21491,7 +21493,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5969248828666948181, guid: cebbcd5c2445f9c448866690916ad670, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5969248828666948181, guid: cebbcd5c2445f9c448866690916ad670, type: 3}
       propertyPath: m_LocalPosition.x
