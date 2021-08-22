@@ -20,9 +20,16 @@ public class HealthBehaviourScript : MonoBehaviour
                 !GetComponent<Animator>().GetBool("Death"))
             {
                 hurt.HurtDisable();
+                //collision.gameObject.BroadcastMessage("HurtDisable");
+                //if (collision.gameObject.transform.parent != null)
+                //{
+                //    print("collision.gameObject.transform.parent != null");
+                //    PlayerBehaviourScript player = collision.gameObject.transform.parent.GetComponent<PlayerBehaviourScript>();
+                //    if (player != null) player.DisableAllHurt();
+                //}
 
                 this.Health -= hurt.power;
-                print("[" + this.gameObject.name + "] 生命力 = " + this.Health);
+                print($"[{this.gameObject.name}] 生命力 = {this.Health} (BY: {collision.gameObject.name})");
                 if (this.Health <= 0) SendMessage("Die");
 
                 AudioSource.PlayClipAtPoint(hit_audio, collision.GetContact(0).point, 1);
@@ -34,8 +41,7 @@ public class HealthBehaviourScript : MonoBehaviour
                 GetComponent<Animator>().SetTrigger("Hit");
 
                 EnemyBehaviourScript enemy = GetComponent<EnemyBehaviourScript>();
-                if (enemy != null)
-                    enemy.BeHit();
+                if (enemy != null) enemy.BeHit();
             }
         }
 

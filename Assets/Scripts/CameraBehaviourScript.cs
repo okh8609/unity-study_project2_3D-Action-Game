@@ -16,8 +16,8 @@ public class CameraBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (cam_pos == null) return;
         float tt = Time.deltaTime * 6.5f;
-        //print(tt);
         this.transform.position = Vector3.Lerp(this.transform.position, cam_pos.position, tt);
         this.transform.rotation = Quaternion.Lerp(this.transform.rotation, cam_pos.rotation, tt);
     }

@@ -34,7 +34,7 @@ public class EnemyBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(patrol_start_position, targetObj.transform.position) < patrol_guard_scope)
+        if (targetObj != null && Vector3.Distance(patrol_start_position, targetObj.transform.position) < patrol_guard_scope)
         {
             Navigate();
             AutoAttack();
@@ -67,7 +67,7 @@ public class EnemyBehaviourScript : MonoBehaviour
             this.next_can_attack < Time.time &&
             !animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit Blend Tree")) //第0層正在播放的動畫名稱，是否叫做"XXX"
         {
-            this.next_can_attack += 3.0f;
+            this.next_can_attack += 2.75f;
 
             this.transform.LookAt(targetObj.transform);
 
@@ -124,7 +124,7 @@ public class EnemyBehaviourScript : MonoBehaviour
     private float next_can_attack;
     public void BeHit()
     {
-        next_can_attack = Time.time + 6.5f;
+        next_can_attack = Time.time + 3.5f;
     }
 
     void Die()
