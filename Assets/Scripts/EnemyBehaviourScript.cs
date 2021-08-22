@@ -11,7 +11,7 @@ public class EnemyBehaviourScript : MonoBehaviour
     public float patrol_guard_scope;
     Vector3 patrol_random_position = Vector3.zero;
 
-    public GameObject targetObj;
+    GameObject targetObj;
 
     Animator animator;
 
@@ -25,6 +25,7 @@ public class EnemyBehaviourScript : MonoBehaviour
     {
         patrol_start_position = this.transform.position;
         patrol_update_timeline = Time.time;
+        targetObj = GameObject.Find("Player");
         animator = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         navAgent.updateRotation = false;
