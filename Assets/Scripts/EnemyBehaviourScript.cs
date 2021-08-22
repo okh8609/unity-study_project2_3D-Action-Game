@@ -6,6 +6,11 @@ using UnityStandardAssets.Characters.ThirdPerson;
 
 public class EnemyBehaviourScript : MonoBehaviour
 {
+    Vector3 patrol_start_position;
+    float patrol_update_timeline;
+    public float patrol_guard_scope;
+    Vector3 patrol_random_position = Vector3.zero;
+
     public GameObject targetObj;
 
     Animator animator;
@@ -18,6 +23,8 @@ public class EnemyBehaviourScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        patrol_start_position = this.transform.position;
+        patrol_update_timeline = Time.time;
         animator = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         navAgent.updateRotation = false;
@@ -27,10 +34,15 @@ public class EnemyBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Navigate();
-        AutoAttack();
-
-
+        if (Vector3.Distance(patrol_start_position, targetObj.transform.position) < patrol_guard_scope)
+        {
+            Navigate();
+            AutoAttack();
+        }
+        else
+        {
+            Patrol();
+        }
     }
 
     void Navigate()
@@ -41,6 +53,7 @@ public class EnemyBehaviourScript : MonoBehaviour
         //print("navAgent.velocity.magnitude -> " + navAgent.velocity.magnitude.ToString());
 
         navAgent.SetDestination(targetObj.transform.position);
+        navAgent.speed = 2.5f;
 
         if (navAgent.remainingDistance > navAgent.stoppingDistance)
             character.Move(navAgent.velocity, false, false);
@@ -50,7 +63,7 @@ public class EnemyBehaviourScript : MonoBehaviour
 
     void AutoAttack()
     {
-        if ((navAgent.remainingDistance < (navAgent.stoppingDistance + 1.5f)) &&
+        if ((navAgent.remainingDistance < (navAgent.stoppingDistance + 1.25f)) &&
             this.next_can_attack < Time.time &&
             !animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit Blend Tree")) //第0層正在播放的動畫名稱，是否叫做"XXX"
         {
@@ -61,6 +74,25 @@ public class EnemyBehaviourScript : MonoBehaviour
             animator.SetTrigger("Attack2");
             this.gameObject.BroadcastMessage("HurtEnable");
         }
+    }
+
+    void Patrol() // 巡邏
+    {
+        if (patrol_update_timeline < Time.time)
+        {
+            patrol_update_timeline = Time.time + 5.0f;
+
+            patrol_random_position = patrol_start_position +
+                new Vector3(Random.Range(-patrol_guard_scope, patrol_guard_scope), 0.0f, Random.Range(-patrol_guard_scope, patrol_guard_scope));
+        }
+
+        navAgent.SetDestination(patrol_random_position);
+        navAgent.speed = 0.5f;
+
+        if (navAgent.remainingDistance > navAgent.stoppingDistance)
+            character.Move(navAgent.velocity, false, false);
+        else
+            character.Move(Vector3.zero, false, false);
     }
 
     //private void OnCollisionEnter(Collision collision)
